@@ -38,12 +38,28 @@ export class App extends Component {
   // метод, який додає новий контакт в стейт
   //в властивість contacts, що є масивом обʼєктів
   // отримавши обʼєкт нового контакту
+  // робить зпрть гп функцію зодо повтору імені
+  // якщо є збіг - показуєтсья повідомлення
+  // якщо збігу немає, то додається новий контакт
   addContact = newContact => {
-    this.setState(prevState => {
-      return {
-        contacts: [...prevState.contacts, newContact],
-      };
-    });
+    if (this.checkNewNameRepeate(newContact.name)) {
+      alert(`${newContact.name} is already in contacts!`);
+    } else {
+      this.setState(prevState => {
+        return {
+          contacts: [...prevState.contacts, newContact],
+        };
+      });
+    }
+  };
+
+  //перевірка чи є контакт з таким іменем з врахуванням різних регістрів
+  // повертає true або false
+  checkNewNameRepeate = newName => {
+    let arrayOfNamesInStateInLowerCase = this.state.contacts.map(item =>
+      item.name.toLocaleLowerCase()
+    );
+    return arrayOfNamesInStateInLowerCase.includes(newName.toLocaleLowerCase());
   };
 
   // ф-ія обробник зміни в інфуті фільтра
