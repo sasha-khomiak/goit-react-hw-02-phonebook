@@ -4,6 +4,8 @@ import { nanoid } from 'nanoid';
 
 import { Input, Label, Button, Form, Wrap } from './ContactForm.styled';
 
+import PropTypes from 'prop-types';
+
 export default class ContactForm extends Component {
   state = {
     name: '',
@@ -61,3 +63,5 @@ export default class ContactForm extends Component {
     );
   }
 }
+
+ContactForm.propTypes = { addContact: PropTypes.func.isRequired };

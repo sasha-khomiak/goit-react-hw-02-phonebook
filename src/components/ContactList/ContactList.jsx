@@ -1,5 +1,7 @@
 import { Ul, Li, Name, Button } from './ContactList.styled';
 
+import PropTypes from 'prop-types';
+
 const ContactList = ({ contacts, deleteContact }) => {
   return (
     <Ul>
@@ -18,3 +20,8 @@ const ContactList = ({ contacts, deleteContact }) => {
 };
 
 export default ContactList;
+
+ContactList.propTypes = {
+  deleteContact: PropTypes.func.isRequired,
+  contacts: PropTypes.array.isRequired,
+};
