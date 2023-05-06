@@ -6,8 +6,8 @@ import { Container } from './App.styled';
 
 // імпорт компонентів
 import ContactList from './ContactList';
-import Filter from './Filter';
-import ContactForm from './ContactForm';
+// import Filter from './Filter';
+// import ContactForm from './ContactForm';
 
 // створення нашого компоненту-класу App
 export class App extends Component {
