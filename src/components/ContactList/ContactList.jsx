@@ -11,7 +11,7 @@ const ContactList = props => {
               {item.name}: {item.number}
             </p>
             <button type="button" onClick={() => props.deleteContact(item.id)}>
-              Delete contact
+              Delete contact!
             </button>
           </li>
         );
