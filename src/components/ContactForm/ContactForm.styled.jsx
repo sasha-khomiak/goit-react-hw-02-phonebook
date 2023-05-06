@@ -11,6 +11,7 @@ export const Wrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  gap: 10px;
 `;
 
 export const Label = styled.label`
@@ -20,7 +21,7 @@ export const Label = styled.label`
 
 export const Input = styled.input`
   border-radius: 10px;
-  width: 200px;
+  width: 140px;
   height: 20px;
   /* border: none;
   outline: none; */
