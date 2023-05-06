@@ -6,85 +6,77 @@ import { Container } from './App.styled';
 
 // імпорт компонентів
 import ContactList from './ContactList';
-// import Filter from './Filter';
-// import ContactForm from './ContactForm';
+import Filter from './Filter';
+import ContactForm from './ContactForm';
 
 // створення нашого компоненту-класу App
 export class App extends Component {
   //наші стейти
   state = {
     contacts: [
-      { id: 'id-1', name: 'Alex', number: '459-12-56' },
+      { id: 'id-1', name: 'Oleksandr', number: '459-12-56' },
       { id: 'id-2', name: 'Inna', number: '443-89-12' },
       { id: 'id-3', name: 'Max', number: '645-17-79' },
       { id: 'id-4', name: 'Helga', number: '227-91-26' },
     ],
+    filter: '',
     name: '',
+    number: '',
   };
 
-  // метод, який видаляє наш контакт із стейту в властивості contacts, що є масивом обʼєктів
+  // метод, який видаляє наш контакт із стейту
+  // в властивості contacts, що є масивом обʼєктів
+  // отримавши айді елемента
   deleteContact = index => {
-    // console.log('index', index);
     this.setState(prevState => {
-      // console.log('prevState', prevState.contacts);
       return {
         contacts: prevState.contacts.filter(element => element.id !== index),
       };
     });
   };
 
-  // метод, який додає новий контакт в стейт в властивість contacts, що є масивом обʼєктів
+  // метод, який додає новий контакт в стейт
+  //в властивість contacts, що є масивом обʼєктів
+  // отримавши обʼєкт нового контакту
+  addContact = newContact => {
+    this.setState(prevState => {
+      return {
+        contacts: [...prevState.contacts, newContact],
+      };
+    });
+  };
 
+  // ф-ія обробник зміни в інфуті фільтра
+  //перезаписує значення filter в state
+  handleChangeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
+  // функція яка готує масив контактів для рендеру
+  //  після відфільтровки за збігом значенням state.filter
+  layOutFilteredContact = () => {
+    return this.state.contacts.filter(item =>
+      item.name
+        .toLocaleLowerCase()
+        .includes(this.state.filter.toLocaleLowerCase().trim())
+    );
+  };
+
+  // рендер розмітки
   render() {
     return (
       <Container>
-        <h2>Phonebook</h2>
-        <div>
-          <form>
-            <label>
-              Name:
-              <input
-                type="text"
-                name="name"
-                pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                required
-              />
-            </label>
-            <label>
-              {' '}
-              Number:
-              <input
-                type="tel"
-                name="number"
-                pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                required
-              />
-            </label>
-            <button type="submit">Add contact</button>
-          </form>
-        </div>
+        <h1>Phonebook</h1>
+        <ContactForm addContact={this.addContact} />
         <h2>Contacts</h2>
-
-        <ContactList state={this.state} deleteContact={this.deleteContact} />
-        {/* <ul>
-          {this.state.contacts.map(item => {
-            return (
-              <li key={item.id}>
-                <p>
-                  {item.name}: {item.number}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => this.deleteContact(item.id)}
-                >
-                  Delete contact
-                </button>
-              </li>
-            );
-          })}
-        </ul> */}
+        <Filter
+          handleChangeFilter={this.handleChangeFilter}
+          value={this.state.filter}
+        />
+        <ContactList
+          contacts={this.layOutFilteredContact()}
+          deleteContact={this.deleteContact}
+        />
       </Container>
     );
   }

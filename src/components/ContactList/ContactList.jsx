@@ -1,7 +1,4 @@
-const ContactList = props => {
-  console.log(props);
-  const { contacts } = props.state;
-  console.log(contacts);
+const ContactList = ({ contacts, deleteContact }) => {
   return (
     <ul>
       {contacts.map(item => {
@@ -10,8 +7,8 @@ const ContactList = props => {
             <p>
               {item.name}: {item.number}
             </p>
-            <button type="button" onClick={() => props.deleteContact(item.id)}>
-              Delete contact!
+            <button type="button" onClick={() => deleteContact(item.id)}>
+              Delete contact
             </button>
           </li>
         );
