@@ -1,7 +1,9 @@
+import { Input } from './Filter.styled';
+
 const Filter = ({ handleChangeFilter, value }) => {
   return (
     <>
-      <input onChange={handleChangeFilter} value={value} />
+      <Input onChange={handleChangeFilter} value={value} />
     </>
   );
 };

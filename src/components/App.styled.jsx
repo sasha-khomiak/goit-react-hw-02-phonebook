@@ -7,5 +7,5 @@ export const Container = styled.div`
 
   padding: 20px;
   width: 500px;
-  background-color: #fde3e3;
+  background-color: #f5f4fa;
 `;
